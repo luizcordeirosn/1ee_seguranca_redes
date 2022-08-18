@@ -30,9 +30,9 @@ for x in range(startPort, endPort+1):
     try:
         packet = packet_ip / TCP(dport=x, flags='S')
         response = sr1(packet, timeout=0.5, verbose=0)
+        print(f"Resposta: {packet.summary()} / Porta: {x}")
         if response.haslayer(TCP) and response.getlayer(TCP).flags == 0x12:
             print(f"Porta {x} está aberta")
-            print(f"Pacote: {response.summary()}\n")
         else:
             portClosed.append(x)
         sr1(packet_ip / TCP(dport=response.sport, flags='R'), timeout=0.5, verbose=0)
