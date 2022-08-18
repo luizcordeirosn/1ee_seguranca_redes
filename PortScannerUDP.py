@@ -30,13 +30,13 @@ for x in range(startPort, endPort+1):
     try:
         packet_udp = UDP(sport=x, dport=x)
         packet = packet_ip / packet_udp
-        response = sr1(packet, timeout=2, verbose=0)
+        response = sr1(packet, timeout=0.5, verbose=0)
         print(f"Resposta: {packet.summary()} / Porta: {x}")
         if response.haslayer(UDP) and response.getlayer(UDP).flags == 0x12:
             print(f"Porta {x} está aberta")
         else:
             portClosed.append(x)
-        sr1(packet_ip / packet_udp, timeout=2, verbose=0)
+        sr1(packet_ip / packet_udp, timeout=0.5, verbose=0)
     except:
         portDenied.append(x)
 
