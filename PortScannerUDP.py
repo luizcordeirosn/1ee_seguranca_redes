@@ -32,7 +32,7 @@ for x in range(startPort, endPort+1):
         packet = packet_ip / packet_udp
         response = sr1(packet, timeout=0.5, verbose=0)
         print(f"Resposta: {packet.summary()} / Porta: {x}")
-        if response.haslayer(UDP) and response.getlayer(UDP).flags == 0x12:
+        if response.haslayer(UDP):
             print(f"Porta {x} está aberta")
         else:
             portClosed.append(x)
